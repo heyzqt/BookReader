@@ -1,5 +1,6 @@
 package com.heyzqt.bookreader;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
@@ -28,7 +29,34 @@ public class MainActivity extends AppCompatActivity {
 
 		//deleteBookById(4);
 		//deleteBookByUriId(5);
-		deleteBookByUriName("Book zzz");
+		//deleteBookByUriName("Book zzz");
+
+		queryAllBook();
+		updateOneDate();
+		updateBookByUriId(16);
+		queryAllBook();
+	}
+
+	private void updateBookByUriId(int id) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(BookConstract.Name.NAME, "Sing in the Heaven");
+
+		Uri newUri = ContentUris.withAppendedId(BookConstract.Book.CONTENT_URI, id);
+		int result = getContentResolver().update(newUri,
+				contentValues,
+				null,
+				null);
+		Log.i(TAG, "updateBookByUriId: result = " + result);
+	}
+
+	private void updateOneDate() {
+		ContentValues cv = new ContentValues();
+		cv.put(BookConstract.Name.NAME, "Book X");
+		int result = getContentResolver().update(BookConstract.Book.CONTENT_URI,
+				cv,
+				BookConstract.Name.NAME + " = ?",
+				new String[]{"Harry Porter"});
+		Log.i(TAG, "updateOneDate: result = " + result);
 	}
 
 	private void deleteBookByUriName(String str) {
