@@ -22,9 +22,45 @@ public class MainActivity extends AppCompatActivity {
 //		queryBookByUriId(4);
 //		queryBookByUriName("The Sorrows of Young Werther");
 
-		queryAllBook();
-		insertOneBook();
-		queryAllBook();
+//		queryAllBook();
+//		insertOneBook();
+//		queryAllBook();
+
+		//deleteBookById(4);
+		//deleteBookByUriId(5);
+		deleteBookByUriName("Book zzz");
+	}
+
+	private void deleteBookByUriName(String str) {
+		Uri uri = Uri.withAppendedPath(BookConstract.Name.CONTENT_URI, str);
+		int deleteId = getContentResolver().delete(uri,
+				null,
+				null);
+		if (deleteId > 0) {
+			Log.i(TAG, "deleteBookById: delete book " + deleteId);
+			queryAllBook();
+		}
+	}
+
+	private void deleteBookByUriId(int id) {
+		Uri newUri = Uri.withAppendedPath(BookConstract.Book.CONTENT_URI, String.valueOf(id));
+		int deleteId = getContentResolver().delete(newUri,
+				"",
+				null);
+		if (deleteId > 0) {
+			Log.i(TAG, "deleteBookById: delete book " + deleteId);
+			queryAllBook();
+		}
+	}
+
+	private void deleteBookById(int id) {
+		int deleteId = getContentResolver().delete(BookConstract.Book.CONTENT_URI,
+				BookConstract.Book._ID + " = ?",
+				new String[]{String.valueOf(id)});
+		if (deleteId > 0) {
+			Log.i(TAG, "deleteBookById: delete book " + deleteId);
+			queryAllBook();
+		}
 	}
 
 	private void insertOneBook() {
