@@ -19,6 +19,20 @@ public class MainActivity extends AppCompatActivity {
 
 		queryAllBook();
 		queryBookByUriId(4);
+		queryBookByUriName("The Sorrows of Young Werther");
+	}
+
+	private void queryBookByUriName(String name) {
+		Uri newUri = Uri.withAppendedPath(BookConstract.Name.CONTENT_URI, name);
+		Cursor cursor = getContentResolver().query(newUri,
+				null,
+				null,
+				null,
+				null);
+		if (cursor != null) {
+			showAllData(cursor);
+			cursor.close();
+		}
 	}
 
 	private void queryBookByUriId(int id) {
