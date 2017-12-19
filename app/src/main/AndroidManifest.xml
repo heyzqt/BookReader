@@ -3,6 +3,7 @@
           package="com.heyzqt.bookreader">
 
     <uses-permission android:name="com.heyzqt.permission.READ_BOOKPROVIDER"/>
+    <uses-permission android:name="com.heyzqt.permission.WRITE_BOOKPROVIDER"/>
 
     <application
         android:allowBackup="true"

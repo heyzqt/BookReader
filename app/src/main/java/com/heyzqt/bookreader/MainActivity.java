@@ -1,5 +1,6 @@
 package com.heyzqt.bookreader;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,9 +18,22 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+//		queryAllBook();
+//		queryBookByUriId(4);
+//		queryBookByUriName("The Sorrows of Young Werther");
+
 		queryAllBook();
-		queryBookByUriId(4);
-		queryBookByUriName("The Sorrows of Young Werther");
+		insertOneBook();
+		queryAllBook();
+	}
+
+	private void insertOneBook() {
+		ContentValues cv = new ContentValues();
+		cv.put(BookConstract.Name.NAME, "The City Of Star");
+		cv.put(BookConstract.Type.TYPE, "TYPEC003");
+		cv.put(BookConstract.Book.MIMETYPE_ID, "2");
+		Uri uri = getContentResolver().insert(BookConstract.Book.CONTENT_URI, cv);
+		Log.i(TAG, "insertOneBook: uri = " + uri);
 	}
 
 	private void queryBookByUriName(String name) {
