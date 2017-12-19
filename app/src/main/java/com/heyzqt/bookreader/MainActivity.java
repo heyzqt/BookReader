@@ -1,6 +1,7 @@
 package com.heyzqt.bookreader;
 
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +18,20 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 
 		queryAllBook();
+		queryBookByUriId(4);
+	}
+
+	private void queryBookByUriId(int id) {
+		Uri newUri = Uri.withAppendedPath(BookConstract.Book.CONTENT_URI, String.valueOf(id));
+		Cursor cursor = getContentResolver().query(newUri,
+				null,
+				null,
+				null,
+				null);
+		if (cursor != null) {
+			showAllData(cursor);
+			cursor.close();
+		}
 	}
 
 	private void queryAllBook() {
